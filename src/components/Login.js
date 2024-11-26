@@ -1,138 +1,80 @@
-// src/components/Login.js
-/*
-import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../FirebaseConfig'; // Import auth from firebase
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../FirebaseConfig';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+// Import logo image
+import logo from '../components/logo.jpg'; // Adjust the path to where your logo is
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            // Redirect or do something after successful login
-        } catch (err) {
-            setError(err.message); // Set error message on failure
-        }
-    };
+function Login({ setAuthenticated }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
-    return (
+  // Handle login logic
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setError(''); // Clear previous error
+    try {
+      // Attempt to sign in using Firebase auth
+      await signInWithEmailAndPassword(auth, email, password);
+      setAuthenticated(true); // Update parent state to reflect the user is authenticated
+      navigate('/'); // Navigate to the homepage or dashboard after successful login
+    } catch (err) {
+      // Handle errors (e.g., wrong email/password)
+      console.error(err);
+      if (err.code === 'auth/user-not-found') {
+        setError('No user found with this email address.');
+      } else if (err.code === 'auth/wrong-password') {
+        setError('Incorrect password. Please try again.');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Invalid email address format.');
+      } else {
+        setError('Login failed. Please try again.');
+      }
+    }
+  };
+
+  return (
+    <div className="login-page">
+      {/* Logo */}
+      <img src={logo} alt="Logo" className="login-logo" />
+
+      <h2>Login</h2>
+
+      {/* Display error message if there is any */}
+      {error && <p className="error-message">{error}</p>}
+
+      {/* Login Form */}
+      <form onSubmit={handleSignIn}>
         <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-            </form>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-    );
-};
-
-export default Login;
-*/
-
-// src/components/Login.js
-
-import React, { useState } from "react";
-
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Simulate regular email/password login here if needed
-    };
-
-    const handleTouchID = async () => {
-        if (!window.PublicKeyCredential) {
-            alert("WebAuthn not supported in this browser");
-            return;
-        }
-
-        // Fetch login options from your server
-        const response = await fetch('/api/login');
-        const options = await response.json();
-
-        options.publicKey.challenge = Uint8Array.from(atob(options.publicKey.challenge), c => c.charCodeAt(0));
-        options.publicKey.allowCredentials = options.publicKey.allowCredentials.map(cred => {
-            return {
-                id: Uint8Array.from(atob(cred.id), c => c.charCodeAt(0)),
-                type: 'public-key',
-            };
-        });
-
-        try {
-            const assertion = await navigator.credentials.get({ publicKey: options.publicKey });
-
-            // Send assertion to your server for verification
-            const result = await fetch('/api/login/complete', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(assertion),
-            });
-
-            if (result.ok) {
-                alert("Login successful!");
-            } else {
-                alert("Login failed!");
-            }
-        } catch (err) {
-            setError(err.message);
-        }
-    };
-
-    return (
         <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-                <button type="button" onClick={handleTouchID}>Login with Touch ID</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-            </form>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
-    );
-};
+        <button type="submit">Log In</button>
+      </form>
+
+      {/* Button to navigate to the signup page */}
+      <div>
+        <button onClick={() => navigate('/signup')}>Go to Sign Up</button>
+      </div>
+    </div>
+  );
+}
 
 export default Login;
