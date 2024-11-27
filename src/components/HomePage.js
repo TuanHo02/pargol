@@ -1,8 +1,6 @@
-// HomePage.js
 import React, { useState } from 'react';
-import UserActivityLogs from './components/UserActivityLogs';
-import AdminConfig from './components/AdminConfig';
 import './App.css';
+import logo from './logo.jpg';
 
 const HomePage = ({ onLogout }) => {
   const [mainView, setMainView] = useState('user-activity-logs');

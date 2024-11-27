@@ -1,81 +1,284 @@
-/* src/App.css */
+/* App.css */
 
-.menu section {
-    text-align: center;
-  }
-  
-  .categories button {
+/* Basic reset and styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Header section */
+header {
+  background-color: #4CAF50;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+header img {
+  max-height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+header h1 {
+  display: inline-block;
+  color: white;
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+/* Navbar styling */
+nav {
+  background-color: #333;
+  padding: 10px 0;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+nav a:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Active link styling */
+nav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Main content styling */
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Form styling */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+}
+
+/* Button for links */
+.login-link {
+  background-color: transparent;
+  color: #4CAF50;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  color: #45a049;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  nav a {
     margin: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    border: none;
-    background-color: #f1f1f1;
+    padding: 8px;
   }
-  
-  .categories button.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .menu-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .menu-item {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #ddd;
-  }
-  
-  .menu-item img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .menu-item h3 {
-    font-size: 1.5rem;
-    margin: 10px 0;
-  }
-  
-  /* src/components/LoginPage.css */
 
+  header h1 {
+    font-size: 20px;
+  }
+
+  button {
+    padding: 8px 16px;
+  }
+}
+
+/* Example CSS for ProfilePage */
+.profile-page {
+  text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-page button {
+  padding: 10px 20px;
+  background-color: #f56d6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.profile-page button:hover {
+  background-color: #ff4d4d;
+}
+
+.profile-page input {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.profile-page form {
+  margin-top: 20px;
+}
+
+.profile-page p {
+  font-size: 14px;
+  color: #333;
+}
+
+/* src/App.css or src/components/ProfilePage.css */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  background-color: #f56d6d;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background-color: #ff4d4d;
+}
+
+/* src/components/Login.css or src/App.css */
 .login-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .login-page input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .login-page button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .login-page button:hover {
-    background-color: #45a049;
-  }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 10px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Vertically center */
+  align-items: center;      /* Horizontally center */
+  height: 100vh;            /* Make the container take the full viewport height */
+  text-align: center;       /* Center text */
+  padding: 20px;            /* Optional, adds space around the content */
+}
+
+.login-logo {
+  max-width: 150px;  /* Limit the size of the logo */
+  margin-bottom: 20px;  /* Add some space below the logo */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;  /* Optional, sets a max width for the form */
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;  /* Make input fields take full width */
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+}

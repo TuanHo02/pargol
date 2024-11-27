@@ -1,8 +1,16 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';  // Import your main App component
-import './index.css';     // Import your global CSS file (optional)
+import { createRoot } from 'react-dom/client'; 
+import App from './App';
+import './index.css'; 
 
-const container = document.getElementById('app'); // Get the div with id "app"
-const root = createRoot(container); // Create a root element
-root.render(<App tab="home" />);    // Render the App component into the root container
+// Ensure the DOM is fully loaded before rendering
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('root');
+
+  if (container) {
+    const root = createRoot(container);  // Create root for React app
+    root.render(<App />);  // Render the App component
+  } else {
+    console.error("Error: Container with id 'root' not found!");
+  }
+});
